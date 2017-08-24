@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "227084249078",
+    "firebase_url": "https://morhpt-c.firebaseio.com",
+    "project_id": "morhpt-c",
+    "storage_bucket": "morhpt-c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227084249078:android:a7763abc0c8fb6a3",
+        "android_client_info": {
+          "package_name": "com.morhpt.c"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227084249078-jgt10ahcknltt625hdprp3bnbtl9ta5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.morhpt.c",
+            "certificate_hash": "8ef3944f496eab1686c67192b5216978f7f225c4"
+          }
+        },
+        {
+          "client_id": "227084249078-e1oja2c19a2ek3ftciefr3pg11dlvtfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.morhpt.c",
+            "certificate_hash": "0d6ed8797116d2f55898e637a167ef6f9ff2044a"
+          }
+        },
+        {
+          "client_id": "227084249078-8m162pk54u21qn2rhcnv4b3f2i8fv23o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC2RMtE9gBH5RVNLlJjmdZeUxoBdHcnLM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227084249078-8m162pk54u21qn2rhcnv4b3f2i8fv23o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
