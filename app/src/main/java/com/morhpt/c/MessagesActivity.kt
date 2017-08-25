@@ -1,11 +1,15 @@
 package com.morhpt.c
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,8 +26,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_messages.*
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 
@@ -33,6 +39,8 @@ class MessagesActivity : GodLikeActivity() {
     private var mAdapter: FirebaseRecyclerAdapter<Messages, MessagesHolder>? = null
     private var chatId: String? = null
     private var chatUserId: String? = null
+
+    private val PICK_IMAGE: Int = 1124
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -165,6 +173,13 @@ class MessagesActivity : GodLikeActivity() {
                 }
             }
         }
+
+        message_file_icon.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select a Picture"), PICK_IMAGE)
+        }
     }
 
     class MessagesHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -229,5 +244,34 @@ class MessagesActivity : GodLikeActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mAdapter?.cleanup()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+            val pickedImage = data?.data
+
+            val filePath = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = contentResolver.query(pickedImage, filePath, null, null, null)
+            cursor.moveToFirst()
+            val imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]))
+
+            val options =  BitmapFactory.Options()
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888
+            val bitmap = BitmapFactory.decodeFile(imagePath, options)
+
+            val baos =  ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            // TODO("GET IMAGE TYPE")
+
+            val storage = FirebaseStorage.getInstance()
+            val chatImages = storage.reference.child("chats").child(chatId!!)
+
+            val  uploadTask = chatImages.putBytes(data)
+
+            cursor.close()
+        }
     }
 }

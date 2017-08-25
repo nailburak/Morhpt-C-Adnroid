@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/messages_main"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.morhpt.c.MessagesActivity">
 
@@ -79,11 +79,20 @@
             android:id="@+id/messages_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_toStartOf="@+id/messages_send_button"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/message_file_icon"
             android:background="@android:color/transparent"
             android:hint="type a message"
-            android:inputType="textCapSentences|textAutoCorrect" />
+            android:inputType="textCapSentences|textAutoCorrect"
+            android:minHeight="50dp" />
+
+        <ImageView
+            android:id="@+id/message_file_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/messages_send_button"
+            android:src="@drawable/ic_attachment_black_24dp" />
 
         <ImageButton
             android:id="@+id/messages_send_button"

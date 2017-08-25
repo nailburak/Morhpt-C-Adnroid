@@ -305,19 +305,18 @@ class MainActivity : GodLikeActivity() {
                 try {
                     value = barcode.rawValue.split('~')
 
-                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-                    intent.putExtra("uid", value[0])
-                    intent.putExtra("displayName", value[1])
-                    startActivity(intent)
+                    if (value[0] == fUser.uid){
+                        Snackbar.make(main_view, "That's You!!", Snackbar.LENGTH_LONG).show()
+                    } else {
+                        val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                        intent.putExtra("uid", value[0])
+                        intent.putExtra("displayName", value[1])
+                        startActivity(intent)
+                    }
 
                 } catch (e: Exception){
                     Snackbar.make(main_view, "Invalid QR code", Snackbar.LENGTH_LONG).show()
                 }
-
-
-
-
-
             }
         }
     }
