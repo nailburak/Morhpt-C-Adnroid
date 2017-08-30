@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -29,30 +30,31 @@ open class GodLikeActivity : AppCompatActivity() {
 
         val currentUser = FirebaseAuth.getInstance().currentUser
 
+        Log.wtf("token", FirebaseInstanceId.getInstance().token)
 
         if (currentUser == null) {
-            startActivity(Intent(this, SignInActivity::class.java))
-            finish()
-        }
 
-        val database = FirebaseDatabase.getInstance().reference.child("users").child(currentUser!!.uid)
+        } else {
 
-        val refreshedToken = FirebaseInstanceId.getInstance().token
-        database.addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError?) { }
+            val database = FirebaseDatabase.getInstance().reference.child("users").child(currentUser!!.uid)
 
-                    override fun onDataChange(p0: DataSnapshot) {
-                        if (!p0.hasChild("token"))
-                            database.child("token").setValue(refreshedToken)
+            val refreshedToken = FirebaseInstanceId.getInstance().token
+            database.addListenerForSingleValueEvent(
+                    object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError?) {}
+
+                        override fun onDataChange(p0: DataSnapshot) {
+                            if (!p0.hasChild("token"))
+                                database.child("token").setValue(refreshedToken)
+                        }
+
                     }
+            )
 
-                }
-        )
+            database.child("status").setValue("online")
 
-        database.child("status").setValue("online")
-
-        setOfline()
+            setOfline()
+        }
     }
 
     override fun onPause() {

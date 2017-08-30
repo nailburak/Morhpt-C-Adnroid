@@ -31,6 +31,7 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
+import com.morhpt.c.help.JavaHelp
 
 
 class MainActivity : GodLikeActivity() {
@@ -92,7 +93,11 @@ class MainActivity : GodLikeActivity() {
 
                                         override fun onDataChange(p0: DataSnapshot) {
                                             for (child in p0?.children){
-                                                chatLastMessage.text = child.child("message").value.toString()
+                                                chatLastMessage.text =
+                                                        if(child.child("message").value == null)
+                                                            "\uD83D\uDCF7 PHOTO"
+                                                        else
+                                                            child.child("message").value.toString()
                                             }
                                         }
                                     }
@@ -273,6 +278,13 @@ class MainActivity : GodLikeActivity() {
     override fun onStart() {
         super.onStart()
 
+
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser == null) {
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
+        }
     }
 
     override fun onDestroy() {
@@ -298,7 +310,7 @@ class MainActivity : GodLikeActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == SCAN_REQUEST_CODE && resultCode == RESULT_OK){
             if (data != null) {
                 val barcode = data.getParcelableExtra<Barcode>("barcode")
                 var value: List<String>
@@ -319,5 +331,12 @@ class MainActivity : GodLikeActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        finish()
+        moveTaskToBack(true)
     }
 }

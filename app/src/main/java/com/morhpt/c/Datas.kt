@@ -11,7 +11,7 @@ import java.io.InputStreamReader
  */
 
 data class Chats(val chatUserId: String? = null)
-data class Messages(val message: String? = null, val messageFrom: String? = null, val messageTo: String? = null)
+data class Messages(val message: String? = null, val image: String? = null, val messageFrom: String? = null, val messageTo: String? = null)
 data class User(val email: String? = null, val displayName: String? = null, val status: String? = null, val photoURL: String? = null, val qrcode: String? = null)
 data class Friends(val userId: String? = null, val status: String? = null)
 

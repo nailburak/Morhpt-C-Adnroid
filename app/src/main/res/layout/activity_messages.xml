@@ -19,16 +19,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_back_white_24dp"
+                android:id="@+id/messages_back_arrow" />
+
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/messages_user_photo"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:clickable="true"
                 android:src="@mipmap/ic_launcher"
+                android:layout_centerVertical="true"
                 app:civ_border="false"
                 app:civ_shadow="false"
                 app:civ_shadow_color="#000"
-                app:civ_shadow_radius="10" />
+                app:civ_shadow_radius="10"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/messages_back_arrow" />
 
 
             <LinearLayout
@@ -64,8 +75,16 @@
         android:id="@+id/messages_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/messages_type_layout"
+        android:layout_above="@+id/messages_progress_bar"
         android:layout_below="@+id/messages_toolbar"></android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/messages_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_above="@+id/messages_type_layout"
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:id="@+id/messages_type_layout"

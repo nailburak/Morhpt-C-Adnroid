@@ -82,4 +82,11 @@ class SignInActivity : GodLikeActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        finish()
+        moveTaskToBack(true)
+    }
 }

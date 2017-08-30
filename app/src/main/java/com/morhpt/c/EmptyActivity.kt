@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.morhpt.c.help.NotificationService
 
 class EmptyActivity : GodLikeActivity() {
 
@@ -19,6 +20,7 @@ class EmptyActivity : GodLikeActivity() {
     override fun onStart() {
         super.onStart()
 
+        startService(Intent(this, NotificationService::class.java))
 
         val currentUser = FirebaseAuth.getInstance().currentUser
 
